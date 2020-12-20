@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer app permanent>
+    <v-navigation-drawer app v-model="drawer">
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">
@@ -29,6 +29,9 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+    <v-app-bar app collapse>
+      <v-app-bar-nav-icon @click="toggleDrawer()"></v-app-bar-nav-icon>
+    </v-app-bar>
     <v-main>
       <router-view/>
     </v-main>
@@ -42,8 +45,14 @@
           { title: 'Home',to: '/' },
           { title: 'Living',to: '/living' },
         ],
+        drawer: null
       }
     },
+    methods: {
+      toggleDrawer() {
+        this.drawer != this.drawer;
+      }
+    }
   }
 </script>
 <style lang="scss">
