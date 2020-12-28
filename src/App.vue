@@ -29,11 +29,10 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar app collapse>
-      <v-app-bar-nav-icon @click="toggleDrawer()"></v-app-bar-nav-icon>
-    </v-app-bar>
     <v-main>
-      <router-view/>
+      <v-fade-transition mode="out-in">
+        <router-view/>
+      </v-fade-transition>
     </v-main>
   </v-app>
 </template>
@@ -48,32 +47,17 @@
         drawer: null
       }
     },
+    provide() {
+      return {
+        toggleDrawer: this.toggleDrawer
+      }
+    },
     methods: {
       toggleDrawer() {
-        this.drawer != this.drawer;
+        this.drawer = !this.drawer;
       }
     }
   }
 </script>
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
 </style>

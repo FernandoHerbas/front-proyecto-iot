@@ -1,9 +1,10 @@
 <template>
   <v-container fill-height>
     <v-app-bar app>
+      <v-app-bar-nav-icon @click="toggleDrawer()"></v-app-bar-nav-icon>
       <v-toolbar-title>Living</v-toolbar-title>
       <template v-slot:extension>
-          <v-tabs color="light">
+          <v-tabs>
               <template v-for="(item, key) in tabItems">
                   <v-tab :key="key" :to="item.to">{{item.text}}</v-tab>
               </template>
@@ -53,9 +54,20 @@ export default {
           icon: "fa-lightbulb",
           encendido: false
         }
+      ],
+      tabItems: [
+        {
+          text: "LEDS",
+          to: "/living/leds"
+        },
+        {
+          text: "RGB",
+          to: "/living/rgb"
+        }
       ]
     }
   },
+  inject: ['toggleDrawer'],
   methods: {
     toggleLed(index) {
       this.leds[index].encendido = !this.leds[index].encendido;
