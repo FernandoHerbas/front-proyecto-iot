@@ -1,36 +1,23 @@
 <template>
-  <v-container fill-height>
-    <v-app-bar app>
-      <v-app-bar-nav-icon @click="toggleDrawer()"></v-app-bar-nav-icon>
-      <v-toolbar-title>Living</v-toolbar-title>
-      <template v-slot:extension>
-          <v-tabs>
-              <template v-for="(item, key) in tabItems">
-                  <v-tab :key="key" :to="item.to">{{item.text}}</v-tab>
-              </template>
-          </v-tabs>
-      </template>
-    </v-app-bar>
-    <div
-      class="led-container"
-    >
-      <template v-for="(led, index) in leds">
-        <div :key="index">
-          <v-btn
-            :dark="!led.encendido"
-            fab
-            :color="led.encendido ? 'white' : 'blue-grey darken-2'"
-            elevation="10"
-            x-large
-            class="led-btn"
-            @click="toggleLed(index)"
-          >
-            <v-icon>{{led.icon}}</v-icon>
-          </v-btn>
-        </div>
-      </template>
-    </div> 
-  </v-container>
+  <div
+    class="led-container"
+  >
+    <template v-for="(led, index) in leds">
+      <div :key="index">
+        <v-btn
+          :dark="!led.encendido"
+          fab
+          :color="led.encendido ? 'white' : 'blue-grey darken-2'"
+          elevation="10"
+          x-large
+          class="led-btn"
+          @click="toggleLed(index)"
+        >
+          <v-icon>{{led.icon}}</v-icon>
+        </v-btn>
+      </div>
+    </template>
+  </div> 
 </template>
 
 <script>
@@ -55,19 +42,8 @@ export default {
           encendido: false
         }
       ],
-      tabItems: [
-        {
-          text: "LEDS",
-          to: "/living/leds"
-        },
-        {
-          text: "RGB",
-          to: "/living/rgb"
-        }
-      ]
     }
   },
-  inject: ['toggleDrawer'],
   methods: {
     toggleLed(index) {
       this.leds[index].encendido = !this.leds[index].encendido;
@@ -77,7 +53,16 @@ export default {
     // enviarASocket(index) {
     //   var id = index;
     //   var encendido = leds[index].encendido;
+    /*
+    data: {
+      topic: 'cola',
+      message: 'msg'
+    }
+
+    data: {
       
+    }
+    */  
       
     // }
   }

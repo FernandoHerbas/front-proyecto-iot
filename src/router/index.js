@@ -7,12 +7,24 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('../dispositivos/Home.vue')
+    component: () => import('@/ambientes/Home.vue')
   },
   {
     path: '/living',
     name: 'Living',
-    component: () => import('../dispositivos/Living.vue')
+    component: () => import('@/ambientes/Living.vue'),
+    children: [
+      {
+        path: 'leds',
+        name: 'Leds',
+        component: () => import('@/dispositivos/leds.vue')
+      },
+      {
+        path: 'rgb',
+        name: 'RGB',
+        component: () => import('@/dispositivos/rgb.vue')
+      }
+    ]
   }
 ]
 
