@@ -86,7 +86,7 @@ export default {
       console.log(data);
     },
     enviarRGB() {
-      wsh.send("RGB", this.rgb);
+      wsh.send("living","rgb", this.rgb);
     }
   },
   created() {

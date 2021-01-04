@@ -21,6 +21,9 @@
 </template>
 
 <script>
+import WebSocketHelper from '@/utils/WebSocketHelper.js';
+var wsh = new WebSocketHelper();
+
 export default {
   data() {
     return {
@@ -35,7 +38,7 @@ export default {
         },
         {
           icon: "fa-lightbulb",
-          encendido: true
+          encendido: false
         },
         {
           icon: "fa-lightbulb",
@@ -47,24 +50,33 @@ export default {
   methods: {
     toggleLed(index) {
       this.leds[index].encendido = !this.leds[index].encendido;
-      
-      //  this.enviarASocket(index);
-    }//,
-    // enviarASocket(index) {
-    //   var id = index;
-    //   var encendido = leds[index].encendido;
-    /*
-    data: {
-      topic: 'cola',
-      message: 'msg'
+      wsh.send("living","leds","led"+index);
+    },
+    estadoBotones(data) {
+      if(data.environment === "living") {
+        if(data.device === "botones") {
+            if(data.message === "00") //Boton en estado apagado - led apagado
+              this.toggleLed(0);
+            if(data.message === "01") //Boton accionado - led encendido
+              this.toggleLed(0);
+            if(data.message === "10") 
+              this.toggleLed(1);
+            if(data.message === "11") 
+              this.toggleLed(1);
+            if(data.message === "20") 
+              this.toggleLed(2);
+            if(data.message === "21") 
+              this.toggleLed(2);
+            if(data.message === "30")
+              this.toggleLed(3);
+            if(data.message === "31") 
+              this.toggleLed(3);
+        }
+      }
     }
-
-    data: {
-      
-    }
-    */  
-      
-    // }
+  },
+  created() {
+    wsh.receive("botones", this.estadoBotones);
   }
 }
 </script>

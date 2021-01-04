@@ -9,16 +9,20 @@ export default class WebSocketHelper {
     console.log(topic);
     console.log(handler);
     this.connection.onmessage = function(event) {
-      
-      console.log(event);
+      handler(JSON.parse(event.data));
+      console.log(event.data);
     }
   }
-  send(topic, message) {
+  send(environment, device, message) {
     var data = {
-      topic: topic,
-      message: message
+      environment: environment,
+      device: device,
+      message: {
+        values: message
+      }
     }
     data = JSON.stringify(data);
     this.connection.send(data);
+    console.log(data);
   }
 }
