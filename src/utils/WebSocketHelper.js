@@ -7,7 +7,7 @@ export default class WebSocketHelper {
   }
   receive(topic, handler) {
     console.log(topic);
-    console.log(handler);
+    //console.log(handler);
     this.connection.onmessage = function(event) {
       handler(JSON.parse(event.data));
       console.log(event.data);

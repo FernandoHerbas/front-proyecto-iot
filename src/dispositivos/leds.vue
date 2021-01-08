@@ -50,27 +50,21 @@ export default {
   methods: {
     toggleLed(index) {
       this.leds[index].encendido = !this.leds[index].encendido;
-      wsh.send("living","leds","led"+index);
+      wsh.send("living","leds","L" + index);
     },
     estadoBotones(data) {
       if(data.environment === "living") {
         if(data.device === "botones") {
-            if(data.message === "00") //Boton en estado apagado - led apagado
-              this.toggleLed(0);
-            if(data.message === "01") //Boton accionado - led encendido
-              this.toggleLed(0);
-            if(data.message === "10") 
-              this.toggleLed(1);
-            if(data.message === "11") 
-              this.toggleLed(1);
-            if(data.message === "20") 
-              this.toggleLed(2);
-            if(data.message === "21") 
-              this.toggleLed(2);
-            if(data.message === "30")
-              this.toggleLed(3);
-            if(data.message === "31") 
-              this.toggleLed(3);
+            //Boton en estado apagado - led apagado
+            if(data.message === "00") this.leds[0].encendido = false;
+            //Boton accionado - led encendido
+            if(data.message === "10") this.leds[0].encendido = true;
+            if(data.message === "01") this.leds[1].encendido = false;
+            if(data.message === "11") this.leds[1].encendido = true;
+            if(data.message === "02") this.leds[2].encendido = false;
+            if(data.message === "12") this.leds[2].encendido = true;
+            if(data.message === "03") this.leds[3].encendido = false;
+            if(data.message === "13") this.leds[3].encendido = true;
         }
       }
     }
