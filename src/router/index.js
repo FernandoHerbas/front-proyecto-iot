@@ -6,23 +6,57 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: () => import('@/ambientes/Home.vue')
+    component: () => import('@/ambientes/Home.vue'),
+    meta: {
+      name: 'Home'
+    }
   },
   {
     path: '/living',
-    name: 'Living',
-    component: () => import('@/ambientes/Living.vue'),
+    component: () => import('@/ambientes/Environment.vue'),
+    meta: {
+      name: 'Living',
+      environment: 'living'
+    },
     children: [
       {
+        path: '',
+        redirect: 'leds'
+      },
+      {
         path: 'leds',
-        name: 'Leds',
-        component: () => import('@/dispositivos/leds.vue')
+        component: () => import('@/dispositivos/leds.vue'),
+        meta: {
+          name: 'Leds'
+        }
       },
       {
         path: 'rgb',
-        name: 'RGB',
-        component: () => import('@/dispositivos/rgb.vue')
+        component: () => import('@/dispositivos/rgb.vue'),
+        meta: {
+          name: 'RGB'
+        }
+      }
+    ]
+  },
+  {
+    path: '/banio',
+    component: () => import('@/ambientes/Environment.vue'),
+    meta: {
+      name: 'Baño',
+      environment: 'banio'
+    },
+    children: [
+      {
+        path: '',
+        redirect: 'rgb'
+      },
+      {
+        path: 'rgb',
+        component: () => import('@/dispositivos/rgb.vue'),
+        meta: {
+          name: 'RGB'
+        }
       }
     ]
   }
