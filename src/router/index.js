@@ -40,16 +40,23 @@ const routes = [
     ]
   },
   {
-    path: '/banio',
+    path: '/cuarto1',
     component: () => import('@/ambientes/Environment.vue'),
     meta: {
-      name: 'Baño',
-      environment: 'banio'
+      name: 'Habitacion Fer(WIP)',
+      environment: 'cuarto1'
     },
     children: [
       {
         path: '',
-        redirect: 'rgb'
+        redirect: 'oneLed'
+      },
+      {
+        path: 'OneLed',
+        component: () => import('@/dispositivos/oneLed.vue'),
+        meta: {
+          name: 'Led'
+        }
       },
       {
         path: 'rgb',
