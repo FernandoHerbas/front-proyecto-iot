@@ -72,11 +72,13 @@ var environments = [
   }
 ];
 
+  
 const routes = [
-  {
+/*  {
     path: '/login',
     component: () => import('@/views/login.vue')
   },
+*/
   {
     path: '/',
     component: dashboard,
