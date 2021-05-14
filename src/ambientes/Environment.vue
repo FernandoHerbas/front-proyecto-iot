@@ -31,52 +31,40 @@ export default {
     }
   },
   created() {
-    var environment = this.$route.matched[this.$route.matched.length - 2];
-    this.$router.options.routes
-
-
-
-    this.devices = this.recursiveChildrenSearch(this.$router.options.routes, environment.meta.name);
-    this.path = environment.path;
-    console.log(this.$route);
-    console.log(this.$router);
-    /*
-    var route = this.$route.matched[1];
-
-    console.log(route);
-    this.name = route.meta.name;
-    this.path = route.path;
-    this.environment = route.meta.environment;
-
-    console.log(this.$router.options)
-
-    // Obtener los dispositivos
-    var routeEnvironment = this.$router.options.routes.find(route => route.path == this.path)
-    var devices = routeEnvironment.children.slice(1);
-    this.devices = devices;
-    */
-
+    this.updateAppVarDevices();
   },
   methods: {
-    recursiveChildrenSearch(routes, name) {
+    updateAppVarDevices() {
+      var environment = this.$route.matched[this.$route.matched.length - 2];
+
+      this.recursiveChildrenRouteSearch(this.$router.options.routes, environment.meta.name, environment);
+
+      if(environment.children != [])
+        this.devices = environment.children;
+
+      this.path = environment.path;
+      this.name = environment.meta.name;
+    },
+    recursiveChildrenRouteSearch(routes, name, result) {
       for (let route of routes) {
-        if(!route.meta)
-          continue;
-        
-        console.log(`${route.meta.name} == ${name}`);
-        if (route.meta.name === name) {
-          console.log("Devolviendo hijos: ", route.children);
-          return route.children;
+        if(route.meta)
+          console.log(`${route.meta.name} == ${name}`);
+
+        if (route.meta && route.meta.name === name) {
+          result.children = route.children;
+          break;
         }
-        else if (route.children) {
-          console.log("Entrando a hijos")
-          if (route.children.length > 0)
-            return this.recursiveChildrenSearch(route.children, name);
+        if (route.children && route.children.length > 0) {
+          this.recursiveChildrenRouteSearch(route.children, name, result);
         }
       }
-    },
-    metodoDos(routes, name) {
-      
+    }
+  },
+  watch: {
+    "$route.matched"() {
+      // Cambio de ruta
+      console.log("cambio de ruta");
+      this.updateAppVarDevices();
     }
   },
   inject: ['toggleDrawer']

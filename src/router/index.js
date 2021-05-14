@@ -52,7 +52,7 @@ var environments = [
     children: [
       {
         path: '',
-        redirect: 'oneLed'
+        redirect: 'OneLed'
       },
       {
         path: 'OneLed',
