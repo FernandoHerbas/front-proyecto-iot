@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import RoutesHelper from '@/utils/RoutesHelper'
+
 export default {
   data() {
     return {
@@ -37,33 +39,18 @@ export default {
     updateAppVarDevices() {
       var environment = this.$route.matched[this.$route.matched.length - 2];
 
-      this.recursiveChildrenRouteSearch(this.$router.options.routes, environment.meta.name, environment);
+      RoutesHelper.recursiveChildrenRouteSearch(this.$router.options.routes, environment.meta.name, environment);
 
       if(environment.children != [])
         this.devices = environment.children;
 
       this.path = environment.path;
       this.name = environment.meta.name;
-    },
-    recursiveChildrenRouteSearch(routes, name, result) {
-      for (let route of routes) {
-        if(route.meta)
-          console.log(`${route.meta.name} == ${name}`);
-
-        if (route.meta && route.meta.name === name) {
-          result.children = route.children;
-          break;
-        }
-        if (route.children && route.children.length > 0) {
-          this.recursiveChildrenRouteSearch(route.children, name, result);
-        }
-      }
     }
   },
   watch: {
-    "$route.matched"() {
+    $route () {
       // Cambio de ruta
-      console.log("cambio de ruta");
       this.updateAppVarDevices();
     }
   },

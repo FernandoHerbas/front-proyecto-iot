@@ -17,7 +17,7 @@
         <v-list-item
           v-for="(environment, key) in environments"
           :key="key"
-          :to="'/dashboard/'+environment.path"
+          :to="path + '/' +environment.path"
           link
         >
           <v-list-item-content>
@@ -35,16 +35,25 @@
 </template>
 
 <script>
+import RoutesHelper from '@/utils/RoutesHelper'
+
 export default {
   data () {
     return {
       environments: [],
+      path: "/default",
       drawer: null
     }
   },
   created() {
     this.$vuetify.theme.dark = true;
-    this.environments = this.$router.options.routes[0].children;
+
+    var dashboard = this.$route.matched[0];
+
+    RoutesHelper.recursiveChildrenRouteSearch(this.$router.options.routes, dashboard.meta.name, dashboard);
+    
+    this.environments = dashboard.children;
+    this.path = dashboard.path;
   },
   provide() {
     return {
