@@ -17,7 +17,7 @@
         <v-list-item
           v-for="(environment, key) in environments"
           :key="key"
-          :to="environment.path"
+          :to="'/dashboard/'+environment.path"
           link
         >
           <v-list-item-content>
@@ -44,7 +44,7 @@ export default {
   },
   created() {
     this.$vuetify.theme.dark = true;
-    this.environments = this.$router.options.routes;
+    this.environments = this.$router.options.routes[0].children;
   },
   provide() {
     return {

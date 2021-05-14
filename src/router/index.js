@@ -8,14 +8,14 @@ Vue.use(VueRouter)
 
 var environments = [
   {
-    path: '/',
+    path: '',
     component: () => import('@/ambientes/Home.vue'),
     meta: {
       name: 'Home',
     }
   },
   {
-    path: '/living',
+    path: 'living',
     component: () => import('@/ambientes/Environment.vue'),
     meta: {
       name: 'Living',
@@ -43,7 +43,7 @@ var environments = [
     ]
   },
   {
-    path: '/cuarto1',
+    path: 'cuarto1',
     component: () => import('@/ambientes/Environment.vue'),
     meta: {
       name: 'Habitacion Fer(WIP)',
@@ -80,7 +80,7 @@ const routes = [
   },
 */
   {
-    path: '/',
+    path: '/dashboard',
     component: dashboard,
     meta: {
       name: "Dashboard"
